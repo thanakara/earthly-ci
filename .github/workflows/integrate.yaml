@@ -19,7 +19,7 @@ jobs:
       - name: Run the build
         run: earthly +build
 
-  test:
+  pytest:
     runs-on: ubuntu-latest
     needs: build
     steps:
@@ -34,7 +34,7 @@ jobs:
       - name: Run tests
         run: earthly +pytest
 
-  lint:
+  ruff-check:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout code
