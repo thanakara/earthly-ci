@@ -1,3 +1,6 @@
 *.py[oc]
-*.ipynb-checkpoints
-/__pycache__
+
+.vscode
+/.ruff_cache/
+/.pytest_cache/
+**/__pycache__/
