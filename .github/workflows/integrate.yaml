@@ -1,0 +1,16 @@
+name: Earthly CI
+
+on:
+  push:
+    branches: [ main ]
+  
+jobs:
+  all:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: earthly/actions-setup@v1
+      with:
+        version: v0.8.0
+      - uses: actions/checkout@v4
+      - name: Run CI
+        run: earthly --ci +all
