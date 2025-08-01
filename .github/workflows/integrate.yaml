@@ -18,6 +18,12 @@ jobs:
         with:
           version: v0.8.0
 
-      - name: Run earthly +all
-        run: earthly --ci +all
+      - name: Run the build
+        run: earthly +build
+
+      - name: Test the code
+        run: earthly +pytest
+
+      - name: Fix format and check the code
+        run: earthly +ruff-check
 
