@@ -4,11 +4,9 @@ on:
   push:
     branches: [ main ]
 
-
 jobs:
-  earthly-build:
+  build:
     runs-on: ubuntu-latest
-
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
@@ -21,9 +19,31 @@ jobs:
       - name: Run the build
         run: earthly +build
 
-      - name: Test the code
+  test:
+    runs-on: ubuntu-latest
+    needs: build
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Set up Earthly
+        uses: earthly/actions-setup@v1
+        with:
+          version: v0.8.0
+
+      - name: Run tests
         run: earthly +pytest
 
-      - name: Fix format and check the code
-        run: earthly +ruff-check
+  lint:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
 
+      - name: Set up Earthly
+        uses: earthly/actions-setup@v1
+        with:
+          version: v0.8.0
+
+      - name: Run ruff check
+        run: earthly +ruff-check
